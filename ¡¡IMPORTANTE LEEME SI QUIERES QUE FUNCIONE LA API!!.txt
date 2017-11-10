@@ -1,0 +1,5 @@
+1. Ve a la carpeta utilidades redis
+2. coge el archivo zip
+3. ve a tu C:// en caso de que uses windows si usas Linux o Mac no funcionara
+4. descomprime alli el archivo
+5. inicia el redis-server.exe y despues incia el redis-cli.exe. ¡¡LISTO!! AHORA DEBES DE PODER ARRANCAR LA APLICACIÓN SIN PROBLEMAS
