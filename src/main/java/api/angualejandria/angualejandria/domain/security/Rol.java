@@ -1,9 +1,9 @@
 package api.angualejandria.angualejandria.domain.security;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class Rol implements Serializable {
@@ -15,7 +15,8 @@ public class Rol implements Serializable {
 
     private String nombre;
 
-    private Set<UsuarioRoe> usuarioRoles = new HashSet<>();
+    @OneToMany(mappedBy = "rol", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<UsuarioRol> usuarioRoles = new HashSet<>();
 
     public Rol(){}
 
@@ -35,11 +36,11 @@ public class Rol implements Serializable {
         this.nombre = nombre;
     }
 
-    public Set<UsuarioRole> getUsuarioRoles() {
+    public Set<UsuarioRol> getUsuarioRoles() {
         return usuarioRoles;
     }
 
-    public void setUsuarioRoles(Set<UsuarioRole> usuarioRoles) {
+    public void setUsuarioRoles(Set<UsuarioRol> usuarioRoles) {
         this.usuarioRoles = usuarioRoles;
     }
 }

@@ -22,8 +22,8 @@ public class Usuario implements UserDetails, Serializable{
     @Column(name="Id", nullable = false, updatable = false)
     private Long id;
 
-    private String nombreUsuario;
-    private String contraseña;
+    private String username;
+    private String password;
     private String Nombre;
     private String Apellidos;
 
@@ -43,20 +43,20 @@ public class Usuario implements UserDetails, Serializable{
         this.id = id;
     }
 
-    public String getNombreUsuario() {
-        return nombreUsuario;
+    public String getUsername() {
+        return username;
     }
 
-    public void setNombreUsuario(String nombreUsuario) {
-        this.nombreUsuario = nombreUsuario;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    public String getContraseña() {
-        return contraseña;
+    public String getPassword() {
+        return password;
     }
 
-    public void setContraseña(String contraseña) {
-        this.contraseña = contraseña;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getNombre() {
@@ -114,16 +114,6 @@ public class Usuario implements UserDetails, Serializable{
         usuarioRoles.forEach(ur -> authorities.add(new Authority(ur.getRol().getNombre())));
 
         return authorities;
-    }
-
-    @Override
-    public String getPassword() {
-        return null;
-    }
-
-    @Override
-    public String getUsername() {
-        return null;
     }
 
     @Override
