@@ -116,8 +116,6 @@ public class Usuario implements UserDetails, Serializable{
         return authorities;
     }
 
-    //MUY IMPORTANTE DEVOLVER SIEMPRE TRUE EN LOS METODOS isAccountNonExpired(), isAccountNonLocked() y isCredentialsNonExpired()
-    //si no siempre se nos cerrara la sesión aunque todo funcione bien
     @Override
     public boolean isAccountNonExpired() { return true; }
 
