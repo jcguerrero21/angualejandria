@@ -16,6 +16,7 @@ import java.util.Map;
 
 @RestController
 public class LoginResource {
+
     @Autowired
     private UserService userService;
 
