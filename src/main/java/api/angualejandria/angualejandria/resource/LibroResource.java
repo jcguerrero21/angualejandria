@@ -40,7 +40,7 @@ public class LibroResource {
             MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
             Iterator<String> it = multipartRequest.getFileNames();
             MultipartFile multipartFile = multipartRequest.getFile(it.next());
-            String fileName = "libro_" + id + ".png";
+            String fileName = id + ".png";
 
 
             byte[] bytes = multipartFile.getBytes();
@@ -60,4 +60,9 @@ public class LibroResource {
         return libroService.getAll();
     }
 
+    @RequestMapping("/{id}")
+    public Libro getLibro(@PathVariable("id") Long id){
+        Libro libro = libroService.getUno(id);
+        return libro;
+    }
 }
