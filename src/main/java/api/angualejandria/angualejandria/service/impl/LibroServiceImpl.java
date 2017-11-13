@@ -20,6 +20,7 @@ public class LibroServiceImpl implements LibroService{
 
         List<Libro> listaLibrosActiva = new ArrayList<>();
 
+        //solamente listaremos los libros que esten activos
         for (Libro libro: listaLibros){
             if(libro.isActivo()) {
                 listaLibrosActiva.add(libro);

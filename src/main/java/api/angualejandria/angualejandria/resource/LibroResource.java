@@ -16,6 +16,7 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.util.Iterator;
+import java.util.List;
 
 @RestController
 @RequestMapping("/libro")
@@ -29,21 +30,21 @@ public class LibroResource {
         return libroService.guardar(libro);
     }
 
-    @RequestMapping(value="/aniadir/image", method=RequestMethod.POST)
+    @RequestMapping(value = "/aniadir/image", method = RequestMethod.POST)
     public ResponseEntity subirImagenPortadoLibro(
             @RequestParam("id") Long id,
             HttpServletResponse response, HttpServletRequest request
-    ){
+    ) {
         try {
             Libro libro = libroService.getUno(id);
             MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
             Iterator<String> it = multipartRequest.getFileNames();
             MultipartFile multipartFile = multipartRequest.getFile(it.next());
-            String fileName = "libro_"+id+".png";
+            String fileName = "libro_" + id + ".png";
 
 
             byte[] bytes = multipartFile.getBytes();
-            BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(new File("src/main/resources/static/image/libro/"+fileName)));
+            BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(new File("src/main/resources/static/image/libro/" + fileName)));
             stream.write(bytes);
             stream.close();
 
@@ -52,6 +53,11 @@ public class LibroResource {
             e.printStackTrace();
             return new ResponseEntity("Upload failed!", HttpStatus.BAD_REQUEST);
         }
+    }
+
+    @RequestMapping("/listaLibros")
+    public List<Libro> getListaLibros() {
+        return libroService.getAll();
     }
 
 }
