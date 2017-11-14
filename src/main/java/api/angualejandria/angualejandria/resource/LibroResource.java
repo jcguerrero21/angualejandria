@@ -15,6 +15,8 @@ import java.awt.print.Book;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Iterator;
 import java.util.List;
 
@@ -64,5 +66,36 @@ public class LibroResource {
     public Libro getLibro(@PathVariable("id") Long id){
         Libro libro = libroService.getUno(id);
         return libro;
+    }
+
+    @RequestMapping(value="/actualizar", method=RequestMethod.POST)
+    public Libro actualizarLibroPost(@RequestBody Libro libro){
+        return libroService.guardar(libro);
+    }
+
+    @RequestMapping(value = "/actualizar/image", method = RequestMethod.POST)
+    public ResponseEntity actualizarImagenPortadoLibro(
+            @RequestParam("id") Long id,
+            HttpServletResponse response, HttpServletRequest request
+    ) {
+        try {
+            Libro libro = libroService.getUno(id);
+            MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
+            Iterator<String> it = multipartRequest.getFileNames();
+            MultipartFile multipartFile = multipartRequest.getFile(it.next());
+            String fileName = id + ".png";
+
+            Files.delete(Paths.get("src/main/resources/static/image/libro/"+fileName));
+
+            byte[] bytes = multipartFile.getBytes();
+            BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(new File("src/main/resources/static/image/libro/" + fileName)));
+            stream.write(bytes);
+            stream.close();
+
+            return new ResponseEntity("Upload Success!", HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity("Upload failed!", HttpStatus.BAD_REQUEST);
+        }
     }
 }
