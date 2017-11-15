@@ -15,6 +15,7 @@ import java.awt.print.Book;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Iterator;
@@ -100,9 +101,11 @@ public class LibroResource {
     }
 
     @RequestMapping(value="/borrar", method = RequestMethod.POST)
-    public ResponseEntity borrar(@RequestBody String id){
+    public ResponseEntity borrar(@RequestBody String id) throws IOException{
         libroService.deleteUno(Long.parseLong(id));
+        String fileName = id + ".png";
 
+        Files.delete(Paths.get("src/main/resources/static/image/libro/"+fileName));
         return new ResponseEntity("Borrado correctamente", HttpStatus.OK);
     }
 }
