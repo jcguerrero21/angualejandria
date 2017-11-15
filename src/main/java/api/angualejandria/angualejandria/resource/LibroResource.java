@@ -98,4 +98,11 @@ public class LibroResource {
             return new ResponseEntity("Upload failed!", HttpStatus.BAD_REQUEST);
         }
     }
+
+    @RequestMapping(value="/borrar", method = RequestMethod.POST)
+    public ResponseEntity borrar(@RequestBody String id){
+        libroService.deleteUno(Long.parseLong(id));
+
+        return new ResponseEntity("Borrado correctamente", HttpStatus.OK);
+    }
 }
