@@ -18,4 +18,36 @@ public interface UserService {
      * @return
      */
     Usuario crearUsuario(Usuario usuario, Set<UsuarioRol> usuarioRoles);
+
+    /**
+     * método para obtener el usuario por su nombre
+     *
+     * @param username
+     * @return
+     */
+    Usuario getByUsername(String username);
+
+    /**
+     * método para guardar un usuario
+     *
+     * @param usuario
+     * @return
+     */
+    Usuario guardar(Usuario usuario);
+
+    /**
+     * método para obtener un usuario por su id
+     *
+     * @param id
+     * @return
+     */
+    Usuario getById(Long id);
+
+    /**
+     * método para obetner el usuario por su email
+     *
+     * @param email
+     * @return
+     */
+    Usuario getByEmail(String email);
 }
