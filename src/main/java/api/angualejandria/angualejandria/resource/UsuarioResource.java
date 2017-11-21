@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
+import java.security.Principal;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
@@ -151,5 +152,12 @@ public class UsuarioResource {
         userService.guardar(usuarioActual);
 
         return new ResponseEntity("Acutalización correcta", HttpStatus.OK);
+    }
+
+    @RequestMapping("/getUsuarioActual")
+    public Usuario getUsuarioActual(Principal principal){
+        Usuario usuario = userService.getByUsername(principal.getName());
+
+        return usuario;
     }
 }
