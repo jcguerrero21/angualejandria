@@ -12,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -116,33 +117,38 @@ public class UsuarioResource {
 
         Usuario usuarioActual = userService.getById(Long.valueOf(id));
 
-        if(usuarioActual == null) {
+        if (usuarioActual == null) {
             throw new Exception("Usuario no encontrado");
         }
 
-        if(userService.getByEmail(email) != null) {
-            if(userService.getByEmail(email).getId() != usuarioActual.getId()) {
-                return new ResponseEntity("Email no encontrado", HttpStatus.BAD_REQUEST);
+        if (userService.getByEmail(email) != null) {
+            if (userService.getByEmail(email).getId() != usuarioActual.getId()) {
+                return new ResponseEntity("Email ya en uso", HttpStatus.BAD_REQUEST);
             }
         }
 
-        if(userService.getByEmail(username) != null) {
-            if(userService.getByEmail(username).getId() != usuarioActual.getId()) {
-                return new ResponseEntity("Username no encontrado", HttpStatus.BAD_REQUEST);
+        if (userService.getByEmail(username) != null) {
+            if (userService.getByEmail(username).getId() != usuarioActual.getId()) {
+                return new ResponseEntity("Username ya en uso", HttpStatus.BAD_REQUEST);
             }
         }
 
         SecurityConfig securityConfig = new SecurityConfig();
 
-        if(nuevaPassword != null && nuevaPassword.isEmpty() && !nuevaPassword.equals("")){
-            BCryptPasswordEncoder passwordEncoder = SecurityUtility.passwordEncoder();
-            String dbPassword = usuarioActual.getPassword();
-            if(usuarioActual.equals(dbPassword)) {
+
+        BCryptPasswordEncoder passwordEncoder = SecurityUtility.passwordEncoder();
+        String dbPassword = usuarioActual.getPassword();
+
+        if(null != passwordActual)
+        if (passwordEncoder.matches(passwordActual, dbPassword)) {
+            if (nuevaPassword != null && !nuevaPassword.isEmpty() && !nuevaPassword.equals("")) {
                 usuarioActual.setPassword(passwordEncoder.encode(nuevaPassword));
-            } else {
-                return new ResponseEntity("Contraseña actual incorrecta", HttpStatus.BAD_REQUEST);
             }
+            usuarioActual.setEmail(email);
+        } else {
+            return new ResponseEntity("Contraseña actual incorrecta", HttpStatus.BAD_REQUEST);
         }
+
 
         usuarioActual.setNombre(nombre);
         usuarioActual.setApellidos(apellidos);
@@ -155,9 +161,14 @@ public class UsuarioResource {
     }
 
     @RequestMapping("/getUsuarioActual")
-    public Usuario getUsuarioActual(Principal principal){
-        Usuario usuario = userService.getByUsername(principal.getName());
+    public Usuario getUsuarioActual(Principal principal) {
 
-        return usuario;
+        Usuario user = new Usuario();
+        if (null != principal) {
+            user = userService.getByUsername(principal.getName());
+        }
+
+        return user;
     }
+
 }
