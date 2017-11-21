@@ -17,7 +17,7 @@ public class MailConstructor {
     private Environment env;
 
     public SimpleMailMessage constructNewUserEmail(Usuario user, String password) {
-        String message="\nPlease use the following credentials to log in and edit your personal information including your own password."
+        String message="\nUtilice las siguientes credenciales para iniciar sesión y editar su información personal, incluida su propia contraseña."
                 + "\n\n\nUsuario: "+user.getUsername()+"\nContraseña: "+password;
 
         SimpleMailMessage email = new SimpleMailMessage();

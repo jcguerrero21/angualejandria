@@ -28,20 +28,20 @@ public class AngualejandriaApplication implements CommandLineRunner{
 
 		Set<UsuarioRol> usuarioRoles = new HashSet<>();
 
-//		Usuario usuario1 = new Usuario();
-//		usuario1.setNombre("Juan Carlos");
-//		usuario1.setApellidos("Guerrero Moyano");
-//		usuario1.setUsername("jcguerrero21");
-//		usuario1.setPassword(SecurityUtility.passwordEncoder().encode("p"));
-//		usuario1.setEmail("jotaceguerrerom21@gmail.com");
-//		Rol rol1 = new Rol();
-//		rol1.setRolId(1);
-//		rol1.setNombre("ROL_USUARIO");
-//		usuarioRoles.add(new UsuarioRol(usuario1, rol1));
-//
-//		userService.crearUsuario(usuario1, usuarioRoles);
-//
-//		usuarioRoles.clear();
+		Usuario usuario1 = new Usuario();
+		usuario1.setNombre("Juan Carlos");
+		usuario1.setApellidos("Guerrero Moyano");
+		usuario1.setUsername("jc");
+		usuario1.setPassword(SecurityUtility.passwordEncoder().encode("1234"));
+		usuario1.setEmail("jotace@gmail.com");
+		Rol rol1 = new Rol();
+		rol1.setRolId(1);
+		rol1.setNombre("ROL_USUARIO");
+		usuarioRoles.add(new UsuarioRol(usuario1, rol1));
+
+		userService.crearUsuario(usuario1, usuarioRoles);
+
+		usuarioRoles.clear();
 
 		Usuario usuario2 = new Usuario();
 		usuario2.setNombre("Admin");
