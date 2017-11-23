@@ -10,6 +10,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -34,6 +35,9 @@ public class Usuario implements UserDetails, Serializable{
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JsonIgnore
     private Set<UsuarioRol> usuarioRoles = new HashSet<>();
+
+    @OneToMany(cascade=CascadeType.ALL, mappedBy = "usuario")
+    private List<UsuarioPago> usuarioPagoList;
 
     public Long getId() {
         return id;
@@ -105,6 +109,14 @@ public class Usuario implements UserDetails, Serializable{
 
     public void setUsuarioRoles(Set<UsuarioRol> usuarioRoles) {
         this.usuarioRoles = usuarioRoles;
+    }
+
+    public List<UsuarioPago> getUsuarioPagoList() {
+        return usuarioPagoList;
+    }
+
+    public void setUsuarioPagoList(List<UsuarioPago> usuarioPagoList) {
+        this.usuarioPagoList = usuarioPagoList;
     }
 
     @Override
