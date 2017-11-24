@@ -1,7 +1,10 @@
 package api.angualejandria.angualejandria.service.impl;
 
+import api.angualejandria.angualejandria.domain.UsuarioFacturacion;
 import api.angualejandria.angualejandria.domain.UsuarioPago;
 import api.angualejandria.angualejandria.repository.RolRepository;
+import api.angualejandria.angualejandria.repository.UsuarioFacturacionRepository;
+import api.angualejandria.angualejandria.repository.UsuarioPagoRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import api.angualejandria.angualejandria.domain.Usuario;
@@ -13,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -29,6 +33,12 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private RolRepository rolRepository;
+
+    @Autowired
+    private UsuarioFacturacionRepository usuarioFacturacionRepository;
+
+    @Autowired
+    private UsuarioPagoRepository usuarioPagoRepository;
 
     @Transactional
     public Usuario crearUsuario(Usuario usuario, Set<UsuarioRol> usuarioRoles) {
@@ -70,5 +80,37 @@ public class UserServiceImpl implements UserService {
     @Override
     public Usuario getByEmail(String email) {
         return userRepository.findByEmail(email);
+    }
+
+    @Override
+    public void actualizarPagoUsuarioInfo(UsuarioFacturacion usuarioFacturacion, UsuarioPago usuarioPago, Usuario usuario) {
+        guardar(usuario);
+        usuarioFacturacionRepository.save(usuarioFacturacion);
+        usuarioPagoRepository.save(usuarioPago);
+    }
+
+    @Override
+    public void actualizarUsuarioFacturacion(UsuarioFacturacion usuarioFacturacion, UsuarioPago usuarioPago, Usuario usuario) {
+        usuarioPago.setUsuario(usuario);
+        usuarioPago.setUsuarioFacturacion(usuarioFacturacion);
+        usuarioPago.setPagoPredeterminado(true);
+        usuarioFacturacion.setUsuarioPago(usuarioPago);
+        usuario.getUsuarioPagoList().add(usuarioPago);
+        guardar(usuario);
+    }
+
+    @Override
+    public void establecerPagoPredeterminado(Long usuarioPagoId, Usuario usuario) {
+        List<UsuarioPago> usuarioPagoList = (List<UsuarioPago>) usuarioPagoRepository.findAll();
+
+        for (UsuarioPago usuarioPago: usuarioPagoList) {
+            if(usuarioPago.getId() == usuarioPagoId) {
+                usuarioPago.setPagoPredeterminado(true);
+                usuarioPagoRepository.save(usuarioPago);
+            } else {
+                usuarioPago.setPagoPredeterminado(false);
+                usuarioPagoRepository.save(usuarioPago);
+            }
+        }
     }
 }

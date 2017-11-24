@@ -22,7 +22,7 @@ public class UsuarioFacturacion implements Serializable{
     private String usuarioFacturacionCiudad;
     private String usuarioFacturacionProvincia;
     private String usuarioFacturacionPais;
-    private String usuarioFacturacionCP;
+    private String usuarioFacturacionCodigoPostal;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JsonIgnore
@@ -76,12 +76,12 @@ public class UsuarioFacturacion implements Serializable{
         this.usuarioFacturacionPais = usuarioFacturacionPais;
     }
 
-    public String getUsuarioFacturacionCP() {
-        return usuarioFacturacionCP;
+    public String getUsuarioFacturacionCodigoPostal() {
+        return usuarioFacturacionCodigoPostal;
     }
 
-    public void setUsuarioFacturacionCP(String usuarioFacturacionCP) {
-        this.usuarioFacturacionCP = usuarioFacturacionCP;
+    public void setUsuarioFacturacionCodigoPostal(String usuarioFacturacionCodigoPostal) {
+        this.usuarioFacturacionCodigoPostal = usuarioFacturacionCodigoPostal;
     }
 
     public UsuarioPago getUsuarioPago() {

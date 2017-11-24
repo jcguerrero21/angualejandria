@@ -2,6 +2,7 @@ package api.angualejandria.angualejandria.service.impl;
 
 import api.angualejandria.angualejandria.domain.UsuarioPago;
 import api.angualejandria.angualejandria.repository.UsuarioPagoRepository;
+import api.angualejandria.angualejandria.service.UsuarioPagoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,7 +11,7 @@ import org.springframework.stereotype.Service;
  */
 
 @Service
-public class UsuarioPagoServiceImpl {
+public class UsuarioPagoServiceImpl implements UsuarioPagoService {
 
     @Autowired
     private UsuarioPagoRepository usuarioPagoRepository;

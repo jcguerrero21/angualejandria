@@ -21,7 +21,7 @@ public class UsuarioPago implements Serializable {
     private String nombreTarjeta;
     private String numeroTarjeta;
     private int mesExpiracion;
-    private int añoExpiracion;
+    private int anioExpiracion;
     private int cvc;
     private String nombreTitular;
     private boolean pagoPredeterminado;
@@ -74,12 +74,12 @@ public class UsuarioPago implements Serializable {
         this.mesExpiracion = mesExpiracion;
     }
 
-    public int getAñoExpiracion() {
-        return añoExpiracion;
+    public int getAnioExpiracion() {
+        return anioExpiracion;
     }
 
-    public void setAñoExpiracion(int añoExpiracion) {
-        this.añoExpiracion = añoExpiracion;
+    public void setAnioExpiracion(int anioExpiracion) {
+        this.anioExpiracion = anioExpiracion;
     }
 
     public int getCvc() {

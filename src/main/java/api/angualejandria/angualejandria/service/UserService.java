@@ -1,6 +1,8 @@
 package api.angualejandria.angualejandria.service;
 
 import api.angualejandria.angualejandria.domain.Usuario;
+import api.angualejandria.angualejandria.domain.UsuarioFacturacion;
+import api.angualejandria.angualejandria.domain.UsuarioPago;
 import api.angualejandria.angualejandria.domain.security.UsuarioRol;
 
 import java.util.Set;
@@ -50,4 +52,30 @@ public interface UserService {
      * @return
      */
     Usuario getByEmail(String email);
+
+    /**
+     * método para actualizar el pago de un usuario
+     *
+     * @param usuarioFacturacion
+     * @param usuarioPago
+     * @param usuario
+     */
+    void actualizarPagoUsuarioInfo(UsuarioFacturacion usuarioFacturacion, UsuarioPago usuarioPago, Usuario usuario);
+
+    /**
+     * método para actualizar la facturación del usuario
+     *
+     * @param usuarioFacturacion
+     * @param usuarioPago
+     * @param usuario
+     */
+    void actualizarUsuarioFacturacion(UsuarioFacturacion usuarioFacturacion, UsuarioPago usuarioPago, Usuario usuario);
+
+    /**
+     * método para establecer el pago predeterminado
+     *
+     * @param usuarioPagoId
+     * @param usuario
+     */
+    void establecerPagoPredeterminado(Long usuarioPagoId, Usuario usuario);
 }

@@ -39,7 +39,7 @@ public class PagoResource {
 
         UsuarioFacturacion usuarioFacturacion = usuarioPago.getUsuarioFacturacion();
 
-        userService.actualizarFacturacionUsuario(usuarioFacturacion, usuarioPago, usuario);
+        userService.actualizarUsuarioFacturacion(usuarioFacturacion, usuarioPago, usuario);
 
         return new ResponseEntity("Pago añadido correctamente", HttpStatus.OK);
     }
@@ -63,7 +63,7 @@ public class PagoResource {
 
         Usuario usuario = userService.getByUsername(principal.getName());
 
-        userService.establecerPagoDeterminado(Long.parseLong(id), usuario);
+        userService.establecerPagoPredeterminado(Long.parseLong(id), usuario);
 
         return new ResponseEntity("Pago establecido correctamente", HttpStatus.OK);
     }
