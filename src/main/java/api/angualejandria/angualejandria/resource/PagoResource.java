@@ -51,7 +51,7 @@ public class PagoResource {
 
 //        Usuario usuario = userService.getByUsername(principal.getName());
 
-        usuarioPagoService.borrarById(Long.parseLong(id));
+        usuarioPagoService.borrarById(Long.valueOf(id));
 
         return new ResponseEntity("Pago borrado correctamente", HttpStatus.OK);
     }
