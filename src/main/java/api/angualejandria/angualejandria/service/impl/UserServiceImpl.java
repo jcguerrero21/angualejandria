@@ -1,15 +1,13 @@
 package api.angualejandria.angualejandria.service.impl;
 
+import api.angualejandria.angualejandria.domain.UsuarioEnvio;
 import api.angualejandria.angualejandria.domain.UsuarioFacturacion;
 import api.angualejandria.angualejandria.domain.UsuarioPago;
-import api.angualejandria.angualejandria.repository.RolRepository;
-import api.angualejandria.angualejandria.repository.UsuarioFacturacionRepository;
-import api.angualejandria.angualejandria.repository.UsuarioPagoRepository;
+import api.angualejandria.angualejandria.repository.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import api.angualejandria.angualejandria.domain.Usuario;
 import api.angualejandria.angualejandria.domain.security.UsuarioRol;
-import api.angualejandria.angualejandria.repository.UserRepository;
 import api.angualejandria.angualejandria.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -39,6 +37,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UsuarioPagoRepository usuarioPagoRepository;
+
+    @Autowired
+    private UsuarioEnvioRepository usuarioEnvioRepository;
 
     @Transactional
     public Usuario crearUsuario(Usuario usuario, Set<UsuarioRol> usuarioRoles) {
@@ -110,6 +111,29 @@ public class UserServiceImpl implements UserService {
             } else {
                 usuarioPago.setPagoPredeterminado(false);
                 usuarioPagoRepository.save(usuarioPago);
+            }
+        }
+    }
+
+    @Override
+    public void actualizarUsuarioEnvio(UsuarioEnvio usuarioEnvio, Usuario usuario) {
+        usuarioEnvio.setUsuario(usuario);
+        usuarioEnvio.setUsuarioEnvioPredeterminado(true);
+        usuario.getUsuarioEnvioList().add(usuarioEnvio);
+        guardar(usuario);
+    }
+
+    @Override
+    public void establecerEnvioPredeterminado(Long usuarioEnvioId, Usuario usuario) {
+        List<UsuarioEnvio> usuarioEnvioList = (List<UsuarioEnvio>) usuarioEnvioRepository.findAll();
+
+        for (UsuarioEnvio usuarioEnvio: usuarioEnvioList) {
+            if(usuarioEnvio.getId() == usuarioEnvioId) {
+                usuarioEnvio.setUsuarioEnvioPredeterminado(true);
+                usuarioEnvioRepository.save(usuarioEnvio);
+            } else {
+                usuarioEnvio.setUsuarioEnvioPredeterminado(false);
+                usuarioEnvioRepository.save(usuarioEnvio);
             }
         }
     }

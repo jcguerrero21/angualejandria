@@ -1,6 +1,7 @@
 package api.angualejandria.angualejandria.service;
 
 import api.angualejandria.angualejandria.domain.Usuario;
+import api.angualejandria.angualejandria.domain.UsuarioEnvio;
 import api.angualejandria.angualejandria.domain.UsuarioFacturacion;
 import api.angualejandria.angualejandria.domain.UsuarioPago;
 import api.angualejandria.angualejandria.domain.security.UsuarioRol;
@@ -78,4 +79,20 @@ public interface UserService {
      * @param usuario
      */
     void establecerPagoPredeterminado(Long usuarioPagoId, Usuario usuario);
+
+    /**
+     * método para actualizar el envio del usuario
+     *
+     * @param usuarioEnvio
+     * @param usuario
+     */
+    void actualizarUsuarioEnvio(UsuarioEnvio usuarioEnvio, Usuario usuario);
+
+    /**
+     * Método para establecer el envió predeterminado del listado
+     *
+     * @param usuarioEnvioId
+     * @param usuario
+     */
+    void establecerEnvioPredeterminado(Long usuarioEnvioId, Usuario usuario);
 }

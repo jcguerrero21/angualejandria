@@ -65,7 +65,7 @@ public class PagoResource {
 
         userService.establecerPagoPredeterminado(Long.parseLong(id), usuario);
 
-        return new ResponseEntity("Pago establecido correctamente", HttpStatus.OK);
+        return new ResponseEntity("Pago  predeterminado establecido correctamente", HttpStatus.OK);
     }
 
     @RequestMapping("/getUsuarioPagoLista")

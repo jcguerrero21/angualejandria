@@ -39,6 +39,9 @@ public class Usuario implements UserDetails, Serializable{
     @OneToMany(cascade=CascadeType.ALL, mappedBy = "usuario")
     private List<UsuarioPago> usuarioPagoList;
 
+    @OneToMany(cascade=CascadeType.ALL, mappedBy = "usuario")
+    private List<UsuarioEnvio> usuarioEnvioList;
+
     public Long getId() {
         return id;
     }
@@ -117,6 +120,14 @@ public class Usuario implements UserDetails, Serializable{
 
     public void setUsuarioPagoList(List<UsuarioPago> usuarioPagoList) {
         this.usuarioPagoList = usuarioPagoList;
+    }
+
+    public List<UsuarioEnvio> getUsuarioEnvioList() {
+        return usuarioEnvioList;
+    }
+
+    public void setUsuarioEnvioList(List<UsuarioEnvio> usuarioEnvioList) {
+        this.usuarioEnvioList = usuarioEnvioList;
     }
 
     @Override
