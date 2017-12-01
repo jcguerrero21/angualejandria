@@ -42,6 +42,9 @@ public class Usuario implements UserDetails, Serializable{
     @OneToMany(cascade=CascadeType.ALL, mappedBy = "usuario")
     private List<UsuarioEnvio> usuarioEnvioList;
 
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "usuario")
+    private CarritoCompra carritoCompra;
+
     public Long getId() {
         return id;
     }
@@ -128,6 +131,14 @@ public class Usuario implements UserDetails, Serializable{
 
     public void setUsuarioEnvioList(List<UsuarioEnvio> usuarioEnvioList) {
         this.usuarioEnvioList = usuarioEnvioList;
+    }
+
+    public CarritoCompra getCarritoCompra() {
+        return carritoCompra;
+    }
+
+    public void setCarritoCompra(CarritoCompra carritoCompra) {
+        this.carritoCompra = carritoCompra;
     }
 
     @Override

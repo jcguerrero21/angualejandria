@@ -1,12 +1,9 @@
 package api.angualejandria.angualejandria.service.impl;
 
-import api.angualejandria.angualejandria.domain.UsuarioEnvio;
-import api.angualejandria.angualejandria.domain.UsuarioFacturacion;
-import api.angualejandria.angualejandria.domain.UsuarioPago;
+import api.angualejandria.angualejandria.domain.*;
 import api.angualejandria.angualejandria.repository.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import api.angualejandria.angualejandria.domain.Usuario;
 import api.angualejandria.angualejandria.domain.security.UsuarioRol;
 import api.angualejandria.angualejandria.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,7 +52,12 @@ public class UserServiceImpl implements UserService {
 
             usuario.getUsuarioRoles().addAll(usuarioRoles);
 
+            CarritoCompra carritoCompra = new CarritoCompra();
+            carritoCompra.setUsuario(usuario);
+            usuario.setCarritoCompra(carritoCompra);
+
             usuario.setUsuarioPagoList(new ArrayList<UsuarioPago>());
+            usuario.setUsuarioEnvioList(new ArrayList<UsuarioEnvio>());
 
             localUser = userRepository.save(usuario);
         }
