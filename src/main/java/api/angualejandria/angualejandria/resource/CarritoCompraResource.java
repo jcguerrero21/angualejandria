@@ -76,7 +76,7 @@ public class CarritoCompraResource {
         return carritoCompra;
     }
 
-    @RequestMapping("/borrarItem")
+    @RequestMapping("/borrarCarritoItem")
     public ResponseEntity borrarItem(@RequestBody String id) {
         carritoItemService.borrarCarritoItem(carritoItemService.getById(Long.parseLong(id)));
 

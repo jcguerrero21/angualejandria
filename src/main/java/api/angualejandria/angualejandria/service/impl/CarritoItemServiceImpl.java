@@ -6,6 +6,7 @@ import api.angualejandria.angualejandria.repository.LibroCarritoItemRepository;
 import api.angualejandria.angualejandria.service.CarritoItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -48,6 +49,7 @@ public class CarritoItemServiceImpl implements CarritoItemService {
         return carritoItem;
     }
 
+    @Transactional
     public void borrarCarritoItem(CarritoItem carritoItem) {
         libroCarritoItemRepository.deleteByCarritoItem(carritoItem);
         carritoItemRepository.delete(carritoItem);
