@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -15,14 +16,14 @@ public class Factura implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private String fechaFactura;
-    private String fechaEnvio;
+    private Date fechaFactura;
+    private Date fechaEnvio;
     private String metodoEnvio;
     private String estadoFactura;
     private BigDecimal facturaTotal;
 
     @OneToMany(mappedBy = "factura", cascade = CascadeType.ALL)
-    private List<CarritoItem> carritoItemListList;
+    private List<CarritoItem> carritoItemList;
 
     @OneToOne(cascade = CascadeType.ALL)
     private EnvioCalle envioCalle;
@@ -45,19 +46,19 @@ public class Factura implements Serializable{
         this.id = id;
     }
 
-    public String getFechaFactura() {
+    public Date getFechaFactura() {
         return fechaFactura;
     }
 
-    public void setFechaFactura(String fechaFactura) {
+    public void setFechaFactura(Date fechaFactura) {
         this.fechaFactura = fechaFactura;
     }
 
-    public String getFechaEnvio() {
+    public Date getFechaEnvio() {
         return fechaEnvio;
     }
 
-    public void setFechaEnvio(String fechaEnvio) {
+    public void setFechaEnvio(Date fechaEnvio) {
         this.fechaEnvio = fechaEnvio;
     }
 
@@ -85,12 +86,12 @@ public class Factura implements Serializable{
         this.facturaTotal = facturaTotal;
     }
 
-    public List<CarritoItem> getCarritoItemListList() {
-        return carritoItemListList;
+    public List<CarritoItem> getCarritoItemList() {
+        return carritoItemList;
     }
 
-    public void setCarritoItemListList(List<CarritoItem> carritoItemListList) {
-        this.carritoItemListList = carritoItemListList;
+    public void setCarritoItemList(List<CarritoItem> carritoItemList) {
+        this.carritoItemList = carritoItemList;
     }
 
     public EnvioCalle getEnvioCalle() {

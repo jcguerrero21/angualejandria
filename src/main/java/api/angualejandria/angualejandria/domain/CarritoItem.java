@@ -30,6 +30,11 @@ public class CarritoItem implements Serializable {
     @JsonIgnore
     private CarritoCompra carritoCompra;
 
+    @ManyToOne
+    @JoinColumn(name = "factura_id")
+    @JsonIgnore
+    private Factura factura;
+
     public Long getId() {
         return id;
     }
@@ -76,5 +81,13 @@ public class CarritoItem implements Serializable {
 
     public void setCarritoCompra(CarritoCompra carritoCompra) {
         this.carritoCompra = carritoCompra;
+    }
+
+    public Factura getFactura() {
+        return factura;
+    }
+
+    public void setFactura(Factura factura) {
+        this.factura = factura;
     }
 }
