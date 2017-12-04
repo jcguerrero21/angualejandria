@@ -18,7 +18,6 @@ import java.security.Principal;
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 
 @RestController
 @RequestMapping("/checkout")
@@ -53,14 +52,14 @@ public class CheckoutResource {
         EnvioCalle envioCalle = om.convertValue(mapper.get("envioCalle"), EnvioCalle.class);
         FacturacionCalle facturacionCalle = om.convertValue(mapper.get("facturacionCalle"), FacturacionCalle.class);
         Pago pago = om.convertValue(mapper.get("pago"), Pago.class);
-        String metodoEnvio = (String) mapper.get("metodoEnvio");
+        String metodoEnvio = (String) mapper.get("envioMetodo");
 
         CarritoCompra carritoCompra = userService.getByUsername(principal.getName()).getCarritoCompra();
         List<CarritoItem> carritoItemList = carritoItemService.getByCarritoCompra(carritoCompra);
         Usuario usuario = userService.getByUsername(principal.getName());
         Factura factura = facturaService.crearPedido(carritoCompra, envioCalle, facturacionCalle, pago, metodoEnvio, usuario);
 
-        mailSender.send(mailConstructor.constructNewUserEmail(usuario, factura, Locale.ENGLISH));
+        mailSender.send(mailConstructor.construirFacturaConfirmacionEmail(usuario, factura));
 
         carritoCompraService.limpiarCarritoCompra(carritoCompra);
 

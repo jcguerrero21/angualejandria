@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <link href="/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="/css/non-responsive.css" rel="stylesheet"/>
+
+    <!-- Bootstrap -->
+    <link href="/css/animate.min.css" rel="stylesheet"/>
+    <link href="/css/bootstrap-dropdownhover.min.css" rel="stylesheet"/>
+
+    <link href="/css/font-awesome.min.css" rel="stylesheet"/>
+
+    <link href="/css/style.css" rel="stylesheet"/>
+
+    <style>
+        table {
+            border-collapse: collapse;
+        }
+
+        table, th, td {
+            border: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+<p>Hola <span th:text="${usuario.Nombre}"></span>,</p>
+<br/>
+<p>Gracias por comprar en nuestro librería, esperamos que nuestro servicio le haya sido lo más fácil posible</p>
+<p>Tu número de pedido-factura es: <strong>#<span th:text="${factura.id}"></span></strong>. Aquí está el detalle de tu
+    pedido:</p>
+<h2>Detalle del pedido #<span th:text="${factura.id}"></span></h2>
+<hr/>
+
+<table>
+    <tr>
+        <th>Detalles de facturación</th>
+        <th>Información del pago</th>
+        <th>Dirección de Envío</th>
+    </tr>
+    <tr>
+        <td>
+            <span th:text="${factura.facturacionCalle.facturacionCalleNombre}"></span><br/>
+            <span th:text="${factura.facturacionCalle.facturacionCalleCalle}"></span><br/>
+            <span th:text="${factura.facturacionCalle.facturacionCalleCiudad}"></span><br/>
+            <span th:text="${factura.facturacionCalle.facturacionCalleProvincia}"></span><br/>
+            <span th:text="${factura.facturacionCalle.facturacionCalleCodigoPostal}"></span><br/>
+        </td>
+        <td>
+            <span th:text="${factura.pago.nombreTitular}"> Tarjeta De crédito</span><br/>
+            <br/>
+            <span th:text="${factura.pago.numeroTarjeta}">Número De Tarjeta</span><br/>
+            <span>Fecha De Expiración:</span> <span
+                th:text="${factura.pago.mesExpiracion}"></span>/<span
+                th:text="${factura.pago.anioExpiracion}"></span><br/>
+        </td>
+        <td>
+            <span th:text="${factura.envioCalle.envioCalleNombre}">:</span><br/>
+            <span th:text="${factura.envioCalle.envioCalleCalle}"></span><br/>
+            <span th:text="${factura.envioCalle.envioCalleCiudad}"></span><br/>
+            <span th:text="${factura.envioCalle.envioCalleProvincia}"></span><br/>
+            <span th:text="${factura.envioCalle.envioCalleCodigoPostal}"></span><br/>
+        </td>
+    </tr>
+</table>
+
+<h3><strong>Resumen</strong></h3>
+<table>
+    <thead>
+    <tr>
+        <td><strong>Nombre Del Artículo</strong></td>
+        <td class="text-center"><strong>Precio</strong></td>
+        <td class="text-center"><strong>Cantidad</strong>
+        </td>
+        <td class="text-right"><strong>Total</strong></td>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="carritoItem : ${carritoItemList}">
+        <td><span data-th-text="${carritoItem.libro.titulo}"></span>
+        </td>
+        <td data-th-text="${carritoItem.libro.nuestroPrecio}"
+            class="text-center">
+        </td>
+        <td data-th-text="${carritoItem.cantidad}" class="text-center">
+
+        </td>
+        <td data-th-text="${carritoItem.subtotal}"
+            class="text-right">
+        </td>
+    </tr>
+    <tr>
+        <td class="highrow"></td>
+        <td class="highrow"></td>
+        <td class="highrow text-center">
+            <strong>Subtotal</strong></td>
+        <td data-th-text="${factura.facturaTotal-factura.facturaTotal*0.21}"
+            class="highrow text-right">
+        </td>
+    </tr>
+    <tr>
+        <td class="emptyrow"></td>
+        <td class="emptyrow"></td>
+        <td class="emptyrow text-center"><strong>Impuesto</strong>
+        </td>
+        <td data-th-text="${factura.facturaTotal*0.21}"
+            class="emptyrow text-right">
+        </td>
+    </tr>
+    <tr>
+        <td class="emptyrow"><i
+                class="fa fa-barcode iconbig"></i></td>
+        <td class="emptyrow"></td>
+        <td class="emptyrow text-center"><strong>Total</strong>
+        </td>
+        <td th:with="total=${factura.facturaTotal}"
+            data-th-text="${total}"
+            class="emptyrow text-right">
+        </td>
+    </tr>
+    </tbody>
+</table>
+<br/>
+<p>Un saludo,</p>
+<p>AnguAlejandria</p>
+</body>
+</html>

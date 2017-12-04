@@ -45,6 +45,9 @@ public class Usuario implements UserDetails, Serializable{
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "usuario")
     private CarritoCompra carritoCompra;
 
+    @OneToMany(mappedBy = "usuario")
+    private List<Factura> facturaList;
+
     public Long getId() {
         return id;
     }
@@ -139,6 +142,14 @@ public class Usuario implements UserDetails, Serializable{
 
     public void setCarritoCompra(CarritoCompra carritoCompra) {
         this.carritoCompra = carritoCompra;
+    }
+
+    public List<Factura> getFacturaList() {
+        return facturaList;
+    }
+
+    public void setFacturaList(List<Factura> facturaList) {
+        this.facturaList = facturaList;
     }
 
     @Override

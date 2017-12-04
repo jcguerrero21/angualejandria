@@ -13,13 +13,12 @@ public class Pago implements Serializable{
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String tipo;
-    private String nombreTarjeta;
     private String numeroTarjeta;
-    private String mesExpiracion;
-    private String anioExpiracion;
+    private int mesExpiracion;
+    private int anioExpiracion;
     private int cvc;
     private String nombreTitular;
-    private Boolean pagoPredeterminado;
+    private boolean pagoPredeterminado;
 
     @OneToOne
     @JsonIgnore
@@ -41,14 +40,6 @@ public class Pago implements Serializable{
         this.tipo = tipo;
     }
 
-    public String getNombreTarjeta() {
-        return nombreTarjeta;
-    }
-
-    public void setNombreTarjeta(String nombreTarjeta) {
-        this.nombreTarjeta = nombreTarjeta;
-    }
-
     public String getNumeroTarjeta() {
         return numeroTarjeta;
     }
@@ -57,20 +48,28 @@ public class Pago implements Serializable{
         this.numeroTarjeta = numeroTarjeta;
     }
 
-    public String getMesExpiracion() {
+    public int getMesExpiracion() {
         return mesExpiracion;
     }
 
-    public void setMesExpiracion(String mesExpiracion) {
+    public void setMesExpiracion(int mesExpiracion) {
         this.mesExpiracion = mesExpiracion;
     }
 
-    public String getAnioExpiracion() {
+    public int getAnioExpiracion() {
         return anioExpiracion;
     }
 
-    public void setAnioExpiracion(String anioExpiracion) {
+    public void setAnioExpiracion(int anioExpiracion) {
         this.anioExpiracion = anioExpiracion;
+    }
+
+    public boolean isPagoPredeterminado() {
+        return pagoPredeterminado;
+    }
+
+    public void setPagoPredeterminado(boolean pagoPredeterminado) {
+        this.pagoPredeterminado = pagoPredeterminado;
     }
 
     public int getCvc() {

@@ -31,8 +31,8 @@ public class Factura implements Serializable{
     @OneToOne(cascade = CascadeType.ALL)
     private FacturacionCalle facturacionCalle;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    private Pago pago;
+   @OneToOne(cascade = CascadeType.ALL)
+   private Pago pago;
 
     @ManyToOne
     @JsonIgnore

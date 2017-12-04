@@ -39,10 +39,11 @@ public class FacturaServiceImpl implements FacturaService{
     @Autowired
     private MailConstructor mailConstructor;
 
-    public Factura crearPedido(CarritoCompra carritoCompra, EnvioCalle envioCalle, FacturacionCalle facturacionCalle, Pago pago, String metodoEnvio, Usuario usuario) {
+    public synchronized Factura crearPedido(CarritoCompra carritoCompra, EnvioCalle envioCalle, FacturacionCalle facturacionCalle, Pago pago, String metodoEnvio, Usuario usuario) {
         Factura factura = new Factura();
         factura.setFacturacionCalle(facturacionCalle);
         factura.setEstadoFactura("creada");
+        factura.setPago(pago);
         factura.setEnvioCalle(envioCalle);
         factura.setMetodoEnvio(metodoEnvio);
 
