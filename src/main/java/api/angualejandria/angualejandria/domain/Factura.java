@@ -9,15 +9,15 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
-@Table(name= "usuario_factura")
-public class Factura implements Serializable{
+@Table(name = "usuario_factura")
+public class Factura implements Serializable {
     private static final long serialVersionUID = 2893475845L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private Date fechaFactura;
-    private Date fechaEnvio;
+    private String fechaFactura;
+    private String fechaEnvio;
     private String metodoEnvio;
     private String estadoFactura;
     private BigDecimal facturaTotal;
@@ -31,8 +31,8 @@ public class Factura implements Serializable{
     @OneToOne(cascade = CascadeType.ALL)
     private FacturacionCalle facturacionCalle;
 
-   @OneToOne(cascade = CascadeType.ALL)
-   private Pago pago;
+    @OneToOne(cascade = CascadeType.ALL)
+    private Pago pago;
 
     @ManyToOne
     @JsonIgnore
@@ -46,21 +46,13 @@ public class Factura implements Serializable{
         this.id = id;
     }
 
-    public Date getFechaFactura() {
-        return fechaFactura;
-    }
+    public String getFechaFactura() { return fechaFactura; }
 
-    public void setFechaFactura(Date fechaFactura) {
-        this.fechaFactura = fechaFactura;
-    }
+    public void setFechaFactura(String fechaFactura) { this.fechaFactura = fechaFactura; }
 
-    public Date getFechaEnvio() {
-        return fechaEnvio;
-    }
+    public String getFechaEnvio() { return fechaEnvio; }
 
-    public void setFechaEnvio(Date fechaEnvio) {
-        this.fechaEnvio = fechaEnvio;
-    }
+    public void setFechaEnvio(String fechaEnvio) { this.fechaEnvio = fechaEnvio; }
 
     public String getMetodoEnvio() {
         return metodoEnvio;

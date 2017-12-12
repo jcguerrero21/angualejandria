@@ -12,7 +12,9 @@ import api.angualejandria.angualejandria.utilidades.MailConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -56,7 +58,7 @@ public class FacturaServiceImpl implements FacturaService{
         }
 
         factura.setCarritoItemList(carritoItemList);
-        factura.setFechaFactura(Calendar.getInstance().getTime());
+        factura.setFechaFactura(String.valueOf(Calendar.getInstance().getTime().getDay()+"-"+Calendar.getInstance().getTime().getMonth()+"-"+Calendar.getInstance().getTime().getYear()));
         factura.setFacturaTotal(carritoCompra.getGranTotal());
         envioCalle.setFactura(factura);
         facturacionCalle.setFactura(factura);
@@ -69,5 +71,29 @@ public class FacturaServiceImpl implements FacturaService{
 
     public Factura getUna(Long id){
         return facturaRepository.findOne(id);
+    }
+
+    public List<Factura> getAllFacturas() {
+        List<Factura> listaFacturas = (List<Factura>) facturaRepository.findAll();
+
+        List<Factura> listaFacturasCredas = new ArrayList<>();
+
+        //solamente listaremos las factutas que están creadas
+        for (Factura factura: listaFacturas){
+            if(factura.getEstadoFactura().equals("creada")) {
+                listaFacturasCredas.add(factura);
+            }
+        }
+
+        return listaFacturasCredas;
+    }
+
+    public Factura enviarUno(Factura factura){
+
+        Factura facturaPedido = this.getUna(factura.getId());
+
+        facturaPedido.setEstadoFactura("enviado");
+
+        return facturaRepository.save(facturaPedido);
     }
 }
