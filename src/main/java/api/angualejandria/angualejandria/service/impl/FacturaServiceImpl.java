@@ -93,6 +93,7 @@ public class FacturaServiceImpl implements FacturaService{
         Factura facturaPedido = this.getUna(factura.getId());
 
         facturaPedido.setEstadoFactura("enviado");
+        facturaPedido.setFechaEnvio(String.valueOf(Calendar.getInstance().getTime().getDay()+"-"+Calendar.getInstance().getTime().getMonth()+"-"+Calendar.getInstance().getTime().getYear()));
 
         return facturaRepository.save(facturaPedido);
     }
